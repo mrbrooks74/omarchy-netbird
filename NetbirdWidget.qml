@@ -959,7 +959,8 @@ Item {
                 Text {
                     textFormat: Text.PlainText
                     width: parent.width
-                    text: "Click a peer or your IP/name to copy · hover a peer for ssh"
+                    wrapMode: Text.WordWrap
+                    text: "Click a row (or your IP/name) to copy · hover a row for ssh"
                     color: Qt.rgba(root.fg.r, root.fg.g, root.fg.b, 0.45)
                     font.family: root.fontFamily
                     font.pixelSize: 10

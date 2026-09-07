@@ -147,15 +147,16 @@ Plugins). Keys and defaults:
 | `sshMode` | string | `"ssh"` | `"ssh"` = plain OpenSSH to the peer's NetBird IP (your key + the peer's `sshd`); `"netbird"` = `netbird ssh` (NetBird's own SSH server, needs it enabled on the peer + SSO) |
 | `sshFlags` | string | `""` | Extra flags for the ssh command (syntax matches `sshMode`: OpenSSH `-o ...` vs. `netbird ssh -...`) |
 | `floatingTerminal` | boolean | `false` | Open status / ssh / login in a floating presentation terminal instead of a normal tiled window |
+| `statusCommand` | string | `""` | Advanced: replace the status-JSON command — e.g. `sudo netbird status --json --daemon-addr unix:///var/run/netbird/default.sock` for the templated `netbird@` service |
 
-Example layout entry:
+Settings are **flat keys on the layout entry** (no `settings:` wrapper):
 
 ```json
 {
   "bar": {
     "layout": {
       "right": [
-        { "id": "plugin.netbird", "settings": { "refreshIntervalSec": 10, "dashboardUrl": "https://netbird.example.com" } },
+        { "id": "plugin.netbird", "refreshIntervalSec": 10, "dashboardUrl": "https://netbird.example.com" },
         { "id": "omarchy.clock" }
       ]
     }
