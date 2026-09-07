@@ -78,8 +78,22 @@ fi
 if sudo -n netbird status --json 2>/dev/null | grep -q '"connected": *true'; then
   ok "NetBird already connected"
 else
-  step "Connecting (a browser window will open for SSO login)"
-  sudo netbird up || true
+  step "Connecting — a browser window should open for SSO login"
+  # `netbird up` needs root (the daemon socket), but the SSO browser must open
+  # in *your* session. So run the CLI under sudo and, from this non-root pipe,
+  # open the first login URL it prints ourselves.
+  set +e
+  opened=""
+  sudo netbird up 2>&1 | while IFS= read -r line; do
+    printf '%s\n' "$line"
+    if [[ -z $opened && $line == *https://* ]]; then
+      url=$(grep -oE 'https://[^[:space:]]+' <<<"$line" | head -n1)
+      [[ -n $url ]] && { setsid xdg-open "$url" >/dev/null 2>&1 & opened=1; }
+    fi
+  done
+  set -e
+  echo
+  warn "If no browser opened, copy the https://login.netbird.io/... URL above into your browser."
 fi
 
 echo
