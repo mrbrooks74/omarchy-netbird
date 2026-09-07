@@ -1,0 +1,25 @@
+# omarchy-netbird sudoers rev 2
+#
+# Promptless NetBird control for the omarchy-netbird bar widget.
+#
+# Install as:  /etc/sudoers.d/49-netbird-nopasswd   (mode 0440, owned by root:root)
+# Easiest:     ./contrib/install-sudoers.sh
+#
+# Replace "YOUR_USERNAME" below with your login name if it differs, and adjust the
+# /usr/bin/netbird path if `command -v netbird` reports something else
+# (e.g. /usr/local/bin/netbird).
+#
+# SECURITY: every entry is an EXACT command with fixed arguments. Do not add a
+# `*` wildcard here. `netbird status *` would let any local process run
+# `netbird status` as root with arbitrary flags (--log-file, --config,
+# --daemon-addr, ...), which is a privilege-escalation surface. These four are
+# the only invocations the widget makes without a terminal:
+#   polling  -> netbird status --json
+#   toggling -> netbird up / netbird down
+# Anything else (login, ssh, service, ...) runs through interactive sudo in a
+# terminal and still asks for your password.
+
+Cmnd_Alias NETBIRD_STATUS = /usr/bin/netbird status, /usr/bin/netbird status --json
+Cmnd_Alias NETBIRD_TOGGLE = /usr/bin/netbird up, /usr/bin/netbird down
+
+YOUR_USERNAME ALL=(root) NOPASSWD: NETBIRD_STATUS, NETBIRD_TOGGLE

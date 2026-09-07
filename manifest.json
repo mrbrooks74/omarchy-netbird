@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "plugin.netbird",
+  "name": "NetBird",
+  "version": "0.5.1",
+  "author": "mrbrooks74",
+  "license": "MIT",
+  "description": "NetBird mesh VPN status in the Omarchy bar: connection state, peer count, and one-click connect/disconnect.",
+  "homepage": "https://github.com/mrbrooks74/omarchy-netbird",
+  "repository": "https://github.com/mrbrooks74/omarchy-netbird",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "NetbirdWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "NetBird",
+    "description": "Toggle NetBird, watch connection + peer status, open the dashboard.",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "refreshIntervalSec": 5,
+      "useSudo": true,
+      "showPeerCount": true,
+      "dashboardUrl": "",
+      "sessionWarnHours": 24,
+      "sshUser": "",
+      "sshMode": "ssh",
+      "sshFlags": "",
+      "floatingTerminal": false
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 2,
+        "max": 3600,
+        "step": 1,
+        "defaultValue": 5
+      },
+      {
+        "key": "useSudo",
+        "type": "boolean",
+        "label": "Query/toggle the daemon with sudo -n (needs the sudoers drop-in)",
+        "defaultValue": true
+      },
+      {
+        "key": "showPeerCount",
+        "type": "boolean",
+        "label": "Show connected/total peer count next to the icon",
+        "defaultValue": true
+      },
+      {
+        "key": "dashboardUrl",
+        "type": "string",
+        "label": "Dashboard URL (right-click opens it; blank = open a status terminal)",
+        "defaultValue": ""
+      },
+      {
+        "key": "sessionWarnHours",
+        "type": "integer",
+        "label": "Warn when the SSO session expires within N hours (0 = off)",
+        "min": 0,
+        "max": 720,
+        "step": 1,
+        "defaultValue": 24
+      },
+      {
+        "key": "sshUser",
+        "type": "string",
+        "label": "Default username for the per-peer SSH action (blank = current user)",
+        "defaultValue": ""
+      },
+      {
+        "key": "sshMode",
+        "type": "string",
+        "label": "Peer SSH action: \"ssh\" (plain OpenSSH to the peer's NetBird IP) or \"netbird\" (netbird ssh, needs the NetBird SSH server + SSO)",
+        "defaultValue": "ssh"
+      },
+      {
+        "key": "sshFlags",
+        "type": "string",
+        "label": "Extra flags for the ssh command (syntax matches the chosen mode)",
+        "defaultValue": ""
+      },
+      {
+        "key": "floatingTerminal",
+        "type": "boolean",
+        "label": "Open status/ssh/login in a floating terminal instead of a tiled window",
+        "defaultValue": false
+      }
+    ]
+  }
+}
