@@ -4,6 +4,12 @@ A [NetBird](https://netbird.io) status widget for the [Omarchy](https://omarchy.
 shell bar (Quickshell). Shows connection state and peer count at a glance, and
 gives you one-click connect / disconnect.
 
+<p align="center">
+  <img src="docs/screenshot.png" alt="NetBird widget and peer-list popup in the Omarchy bar" width="354">
+</p>
+
+<sub>Screenshot uses placeholder data.</sub>
+
 | State | Icon | Meaning |
 |-------|------|---------|
 | Connected |  (lock) | management + signal both up; shows `connected/total` peers |
