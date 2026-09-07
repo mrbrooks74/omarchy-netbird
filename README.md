@@ -101,6 +101,26 @@ Only **`omarchy restart shell`** reloads changed plugin QML (`rescanPlugins`
 and the file watcher pick up new/removed plugins, not edited `.qml`).
 Validate the manifest with `omarchy plugin validate <dir>`.
 
+### Uninstall
+
+Remove just the bar widget:
+
+```bash
+omarchy plugin remove plugin.netbird
+```
+
+To also undo what `setup.sh` did to the system, run
+[`contrib/uninstall.sh`](contrib/uninstall.sh) **before** removing the plugin:
+
+```bash
+~/.config/omarchy/plugins/plugin.netbird/contrib/uninstall.sh          # deregister peer, remove service + sudoers; keep the client
+~/.config/omarchy/plugins/plugin.netbird/contrib/uninstall.sh --purge  # also remove netbird-bin and wipe config/state
+```
+
+It runs `netbird deregister` first — otherwise the peer lingers in your
+NetBird tenant as an offline entry and a later `netbird up` enrols a fresh
+one, so the peer count creeps up on every reinstall.
+
 ---
 
 ## Settings
@@ -154,9 +174,10 @@ Example layout entry:
 ## Security note
 
 Omarchy plugins run as **unsandboxed code inside the long-lived
-`omarchy-shell` process**. Three files are worth reading before you enable it:
-`NetbirdWidget.qml` (the widget), `setup.sh` (the first-run installer, which
-uses `sudo`), and `contrib/netbird-nopasswd.sudoers` (the privilege grant).
+`omarchy-shell` process**. Worth reading before you enable it:
+`NetbirdWidget.qml` (the widget), `setup.sh` / `contrib/uninstall.sh` (the
+installer / uninstaller, which use `sudo`), and
+`contrib/netbird-nopasswd.sudoers` (the privilege grant).
 
 The widget's own external calls are `command -v netbird`,
 `netbird status --json`, `netbird up` / `down` / `login` / `ssh`, `ssh`,

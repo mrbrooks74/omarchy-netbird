@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "plugin.netbird",
   "name": "NetBird",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "mrbrooks74",
   "license": "MIT",
   "description": "NetBird mesh VPN status in the Omarchy bar: connection state, peer count, and one-click connect/disconnect.",
