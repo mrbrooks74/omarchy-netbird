@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "plugin.netbird",
   "name": "NetBird",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "mrbrooks74",
   "license": "MIT",
   "description": "NetBird mesh VPN status in the Omarchy bar: connection state, peer count, and one-click connect/disconnect.",
@@ -27,7 +27,8 @@
       "sshUser": "",
       "sshMode": "ssh",
       "sshFlags": "",
-      "floatingTerminal": false
+      "floatingTerminal": false,
+      "statusCommand": ""
     },
     "schema": [
       {
@@ -89,6 +90,12 @@
         "type": "boolean",
         "label": "Open status/ssh/login in a floating terminal instead of a tiled window",
         "defaultValue": false
+      },
+      {
+        "key": "statusCommand",
+        "type": "string",
+        "label": "Advanced: override the status-JSON command (e.g. add --daemon-addr for the templated netbird@ service). Blank = netbird status --json",
+        "defaultValue": ""
       }
     ]
   }

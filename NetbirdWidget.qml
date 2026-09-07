@@ -112,6 +112,11 @@ Item {
     readonly property string sshMode: String(setting("sshMode", "ssh")).trim().toLowerCase()
     readonly property string sshFlags: String(setting("sshFlags", "")).trim()
     readonly property bool floatingTerminal: setting("floatingTerminal", false) === true
+    // Advanced: override the command used to fetch status JSON — e.g. to target
+    // the templated `netbird@` service's socket
+    // (`sudo netbird status --json --daemon-addr unix:///var/run/netbird/default.sock`).
+    // Blank = `[sudo -n] netbird status --json`.
+    readonly property string statusCommand: String(setting("statusCommand", "")).trim()
 
     // ---- theme (with standalone fallbacks) --------------------------
     readonly property color fg: bar ? bar.foreground : "#e0e0e0"
@@ -498,7 +503,9 @@ Item {
 
     Process {
         id: statusProc
-        command: ["sh", "-c", root.sudoPrefix() + "netbird status --json 2>&1"]
+        command: ["sh", "-c", root.statusCommand !== ""
+            ? root.statusCommand
+            : root.sudoPrefix() + "netbird status --json 2>&1"]
         stdout: StdioCollector {
             waitForEnd: true
             onStreamFinished: root.applyStatus(text)

@@ -49,6 +49,14 @@ Left-click opens a themed panel anchored to the widget:
 The NetBird **client, service and sudo access are set up for you** on first
 run — see below.
 
+### Dependencies
+
+| Provided by Omarchy | Installed on first run | Optional |
+|---|---|---|
+| `omarchy-launch-tui`, `wl-copy`, `xdg-open`, `bash`, `grep` | `netbird` (AUR `netbird-bin`), a `/etc/sudoers.d` drop-in, `netbird.service` | `ssh` (for the per-peer SSH action) |
+
+Licence: **MIT** ([LICENSE](LICENSE)). No bundled third-party code.
+
 ---
 
 ## Install
